@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { useEffect } from "react";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,20 +21,21 @@ export default async function RootLayout({
   const resp = await fetch('http://localhost:9999/pages');
   const data:Page[] = await resp.json();
   const liTags = data.map((item)=>{
-    return <li key={item.id}><a href={`/read/${item.id}`}>{item.title}</a></li>
+    return <li key={item.id}><Link href={`/read/${item.id}`}>{item.title}</Link></li>
   });
   console.log('liTags', liTags);
   return (
     <html lang="en">
       <body>
-        <h1><a href="/">WEB</a></h1>
+        <input type="text" placeholder="검색" />
+        <h1><Link href="/">WEB</Link></h1>
         <ol>
           {liTags}
         </ol>
         {children}
         <ul>
-          <li><a href="/create">Create</a></li>
-          <li><a href="/update/id">Update</a></li>
+          <li><Link href="/create">Create</Link></li>
+          <li><Link href="/update/id">Update</Link></li>
           <li><button>Delete</button></li>
         </ul>
       </body>
