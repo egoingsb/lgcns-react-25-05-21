@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { useEffect } from "react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
+import { ContextMenu } from "@/components/contextMenu";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,6 +25,7 @@ export default async function RootLayout({
       revalidate:0
     }
   }
+  
   const resp = await fetch('http://localhost:9999/pages', option);
   const data:Page[] = await resp.json();
   console.log('data', data);
@@ -40,8 +43,7 @@ export default async function RootLayout({
         {children}
         <ul>
           <li><Link href="/create">Create</Link></li>
-          <li><Link href="/update/id">Update</Link></li>
-          <li><button>Delete</button></li>
+          <ContextMenu />
         </ul>
       </body>
     </html>
