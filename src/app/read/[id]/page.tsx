@@ -4,6 +4,12 @@ type ReadProps = {
         id: any;
     };
 };
-export default function Read(props: ReadProps){
-    return <>Read {props.params.id}</>
+export default async function Read(props: ReadProps){
+    const resp = await fetch(`http://localhost:9999/pages/${props.params.id}`);
+    const data = await resp.json();
+    console.log(data);
+    return <>
+        <h2>{data.title}</h2>
+        {data.body}
+    </>
 }
