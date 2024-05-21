@@ -9,7 +9,7 @@ export function ContextMenu(){
         return null;
     }
     return <>
-        <li><Link href="/update/id">Update</Link></li>
+        <li><Link href={`/update/${params.id}`}>Update</Link></li>
         <li><button onClick={async ()=>{
             await fetch(`http://localhost:9999/pages/${params.id}`,{
                 method:'DELETE'
