@@ -35,8 +35,8 @@ export default function Update(props){
         }
         const resp = await fetch('http://localhost:9999/pages/'+props.params.id, option);
         const data = await resp.json();
-        router.refresh();
         router.push(`/read/${data.id}`);
+        router.refresh();
 
         
     }
