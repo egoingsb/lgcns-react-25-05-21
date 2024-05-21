@@ -18,12 +18,17 @@ type Page = {
 export default async function RootLayout({
   children,
 }: RootLayoutProps) {
-  const resp = await fetch('http://localhost:9999/pages');
+  const option = {
+    next: {
+      revalidate:0
+    }
+  }
+  const resp = await fetch('http://localhost:9999/pages', option);
   const data:Page[] = await resp.json();
+  console.log('data', data);
   const liTags = data.map((item)=>{
     return <li key={item.id}><Link href={`/read/${item.id}`}>{item.title}</Link></li>
   });
-  console.log('liTags', liTags);
   return (
     <html lang="en">
       <body>
