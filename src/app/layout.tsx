@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { useEffect } from "react";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -8,16 +9,26 @@ export const metadata: Metadata = {
 type RootLayoutProps = Readonly<{
   children: React.ReactNode;
 }>
-export default function RootLayout({
+type Page = {
+  id:number;
+  title:string;
+  body:string;
+}
+export default async function RootLayout({
   children,
 }: RootLayoutProps) {
+  const resp = await fetch('http://localhost:9999/pages');
+  const data:Page[] = await resp.json();
+  const liTags = data.map((item)=>{
+    return <li key={item.id}><a href={`/read/${item.id}`}>{item.title}</a></li>
+  });
+  console.log('liTags', liTags);
   return (
     <html lang="en">
       <body>
         <h1><a href="/">WEB</a></h1>
         <ol>
-          <li><a href="/read/1">html</a></li>
-          <li><a href="/read/2">css</a></li>
+          {liTags}
         </ol>
         {children}
         <ul>
